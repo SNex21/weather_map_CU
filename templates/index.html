@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода для путешественников</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Проверить погоду для путешественников</h2>
+        <form action="/" method="post">
+
+            <input type="text" id="from" name="from" placeholder="Город отправления">
+            <div id="verdict-from" class="verdict-output">
+                <span>{{ from_inf.status }}</span>
+            </div>
+            {% if from_inf.is_correct %}
+            <div id="values-from" class="number-output">
+                <span><strong>Город:</strong> {{ from_inf.city_name }} ({{ from_inf.latitude }}, {{ from_inf.longitude }})</span>
+                <span><strong>Температура:</strong> {{ from_inf.weather.temperature }}°</span>
+                <span><strong>Влажность:</strong> {{ from_inf.weather.humidity }}%</span>
+                <span><strong>Скорость ветра:</strong> {{ from_inf.weather.speed_wind }} км/ч</span>
+                <span><strong>Вероятность осадков:</strong> {{ from_inf.weather.rain_probability }}%</span>
+            </div>
+            {% endif %}
+
+            <input type="text" id="to" name="to" placeholder="Город назначения">
+            <div id="verdict-to" class="verdict-output">
+                <span>{{ to_inf.status }}</span>
+            </div>
+            {% if to_inf.is_correct %}
+            <div id="values-to" class="number-output">
+                <span><strong>Город:</strong> {{ to_inf.city_name }} ({{ to_inf.latitude }}, {{ to_inf.longitude }})</span>
+                <span><strong>Температура:</strong> {{ to_inf.weather.temperature }}°</span>
+                <span><strong>Влажность:</strong> {{ to_inf.weather.humidity }}%</span>
+                <span><strong>Скорость ветра:</strong> {{ to_inf.weather.wind_speed }} км/ч</span>
+                <span><strong>Вероятность осадков:</strong> {{ to_inf.weather.rain_probability }}%</span>
+            </div>
+            {% endif %}
+
+            <input type="submit" value="Проверить погоду">
+        </form>
+    </div>
+
+</body>
+</html>
