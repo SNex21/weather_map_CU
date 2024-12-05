@@ -36,21 +36,17 @@ def make_response(city_name: str) -> dict:
     
     pattern = r"^[a-zA-Zа-яА-ЯёЁ]+$"
 
-    if not re.fullmatch(pattern, city_name):
-        resp['status'] = 'Вы ввели некоректные название, введите текст правильно'
+    if (not re.fullmatch(pattern, city_name)) or city_name == '' or city_name is None:
+        resp['status'] = 'Упс. Неверно введён город или вы его не указали'
         resp['is_correct'] = False
         return resp
 
     weather = get_weather_city(city_name=city_name)
     if not weather:
-        resp['status'] = 'Данные недоступны'
+        resp['status'] = 'Данные недоступны, ошибка API'
         resp['is_correct'] = False
         return resp
-    
-    if city_name == '' or city_name is None:
-        resp['status'] = 'неверно введенные данные, попробуйте ввести по-другому'
-        resp['is_correct'] = False
-        return resp
+
     about_weather = check_bad_weather(weather)
 
     resp['city_name'] = city_name
