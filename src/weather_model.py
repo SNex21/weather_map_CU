@@ -34,7 +34,7 @@ def make_response(city_name: str) -> dict:
         'is_correct': None,
         }
     
-    pattern = r"^[a-zA-Z]+$"
+    pattern = r"^[a-zA-Zа-яА-ЯёЁ]+$"
 
     if not re.fullmatch(pattern, city_name):
         resp['status'] = 'Вы ввели некоректные название, введите текст правильно'

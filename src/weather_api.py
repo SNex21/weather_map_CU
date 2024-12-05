@@ -23,6 +23,12 @@ class WeatherPlace:
         self.longitude = longitude
 
 
+def detect_language(input_text: str) -> str:
+    if all("а" <= char <= "я" or char == "ё" for char in input_text.lower() if char.isalpha()):
+        return "ru-ru"
+    return "en-us"
+
+
 def get_weather_coords(latitude: float, longitude: float) -> WeatherPlace | None:
     try:
         request_url = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search'
@@ -82,12 +88,13 @@ def get_weather_coords(latitude: float, longitude: float) -> WeatherPlace | None
     
 
 def get_weather_city(city_name: str) -> WeatherPlace | None:
+    lan = detect_language(city_name)
     try:
         request_url = 'http://dataservice.accuweather.com/locations/v1/cities/search'
         query = {
             'apikey': api_key,
             'q': city_name,
-            'language': 'en-us',
+            'language': lan,
             'details': True,
             'toplevel':False,
 
