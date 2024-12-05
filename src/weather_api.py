@@ -99,20 +99,19 @@ def get_weather_city(city_name: str) -> WeatherPlace | None:
             'toplevel':False,
 
         }
-
         response = requests.get(url=request_url, params=query)
 
         if response.status_code == 200:
             location: dict = response.json()[0]
             location_key = location.get('Key')
-            
+
             latitude=location.get('GeoPosition').get('Latitude')
             longitude=location.get('GeoPosition').get('Longitude')
 
         else:
-            raise f'{response.status_code} | {response.text}'
+            raise f''
     except Exception as e:
-        print(e)
+        print(e ,'|',  f'{response.status_code} | {response.text}')
         return None
     
     try:
@@ -142,7 +141,7 @@ def get_weather_city(city_name: str) -> WeatherPlace | None:
                 longitude=longitude,
             )
 
-        raise f'{response.status_code} | {response.text}'
+        raise ''
     except Exception as e:
-        print(e)
+        print(e ,'|', f'{response.status_code} | {response.text}')
         return None
