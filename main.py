@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def main():
     if request.method == "GET":
-        return render_template('index.html', from_data={"show_data": False}, to_data={"show_data": False})
+        return render_template('index.html', from_inf={"show_data": False}, to_inf={"show_data": False})
 
     elif request.method == 'POST':
         try:
